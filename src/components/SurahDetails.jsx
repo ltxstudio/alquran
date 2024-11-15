@@ -11,10 +11,11 @@ const SurahDetails = () => {
   const [surah, setSurah] = useState(null);
   const [loading, setLoading] = useState(true);
   const [translations, setTranslations] = useState([]);
-  const [selectedTranslation, setSelectedTranslation] = useState('en.asad');
+  const [selectedTranslation, setSelectedTranslation] = useState('en.asad'); // Default translation
   const { addBookmark } = useBookmarks();
 
   useEffect(() => {
+    // Fetch all available translations
     axios
       .get('https://api.alquran.cloud/v1/edition/type/translation')
       .then((response) => {
@@ -46,15 +47,11 @@ const SurahDetails = () => {
     fetchData();
   }, [number, selectedTranslation]);
 
-  if (loading) return <p className="text-center text-lg">Loading...</p>;
+  if (loading) return <p>Loading...</p>;
 
   return (
-    <div className="container mx-auto px-4 py-6">
-      <motion.article
-        initial={{ opacity: 0, y: 10 }}
-        animate={{ opacity: 1, y: 0 }}
-        className="bg-white dark:bg-gray-900 p-6 rounded-lg shadow-lg"
-      >
+    <div className="p-4">
+      <motion.article initial={{ opacity: 0, y: 10 }} animate={{ opacity: 1, y: 0 }}>
         <header className="flex justify-between items-center mb-4">
           <div>
             <h1 className="text-3xl font-bold">{surah.translation.name}</h1>
