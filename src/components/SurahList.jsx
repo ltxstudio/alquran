@@ -5,17 +5,32 @@ import { motion } from 'framer-motion';
 
 const SurahList = () => {
   const [surahs, setSurahs] = useState([]);
+  const [filteredSurahs, setFilteredSurahs] = useState([]);
   const [loading, setLoading] = useState(true);
+  const [searchQuery, setSearchQuery] = useState('');
 
   useEffect(() => {
     axios
       .get('https://api.alquran.cloud/v1/surah')
       .then((response) => {
         setSurahs(response.data.data);
+        setFilteredSurahs(response.data.data);  // Initialize filteredSurahs with all surahs
         setLoading(false);
       })
       .catch((error) => console.error(error));
   }, []);
+
+  const handleSearch = (event) => {
+    const query = event.target.value.toLowerCase();
+    setSearchQuery(query);
+
+    // Filter surahs based on the search query
+    const filtered = surahs.filter((surah) => 
+      surah.englishName.toLowerCase().includes(query) ||
+      surah.englishNameTranslation.toLowerCase().includes(query)
+    );
+    setFilteredSurahs(filtered);
+  };
 
   if (loading) return <p className="text-center text-lg">Loading Surahs...</p>;
 
@@ -28,8 +43,20 @@ const SurahList = () => {
       >
         Surah List
       </motion.h1>
+
+      {/* Search Bar */}
+      <div className="mb-6">
+        <input
+          type="text"
+          placeholder="Search Surahs"
+          value={searchQuery}
+          onChange={handleSearch}
+          className="w-full p-3 border border-gray-300 rounded-lg shadow-sm focus:outline-none focus:ring-2 focus:ring-blue-500"
+        />
+      </div>
+
       <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6">
-        {surahs.map((surah) => (
+        {filteredSurahs.map((surah) => (
           <motion.div
             key={surah.number}
             whileHover={{ scale: 1.05 }}
