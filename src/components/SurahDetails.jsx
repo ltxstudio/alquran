@@ -11,11 +11,10 @@ const SurahDetails = () => {
   const [surah, setSurah] = useState(null);
   const [loading, setLoading] = useState(true);
   const [translations, setTranslations] = useState([]);
-  const [selectedTranslation, setSelectedTranslation] = useState('en.asad'); // Default translation
+  const [selectedTranslation, setSelectedTranslation] = useState('en.asad');
   const { addBookmark } = useBookmarks();
 
   useEffect(() => {
-    // Fetch all available translations
     axios
       .get('https://api.alquran.cloud/v1/edition/type/translation')
       .then((response) => {
@@ -47,30 +46,34 @@ const SurahDetails = () => {
     fetchData();
   }, [number, selectedTranslation]);
 
-  if (loading) return <p>Loading...</p>;
+  if (loading) return <p className="text-center text-lg">Loading...</p>;
 
   return (
-    <div className="p-4">
-      <motion.article initial={{ opacity: 0, y: 10 }} animate={{ opacity: 1, y: 0 }}>
-        <header className="flex justify-between items-center mb-4">
+    <div className="container mx-auto px-4 py-6">
+      <motion.article
+        initial={{ opacity: 0, y: 10 }}
+        animate={{ opacity: 1, y: 0 }}
+        className="bg-white dark:bg-gray-900 p-6 rounded-lg shadow-lg"
+      >
+        <header className="flex flex-col md:flex-row justify-between items-center mb-4">
           <div>
-            <h1 className="text-3xl font-bold">{surah.translation.name}</h1>
-            <p className="text-sm text-gray-500">{surah.translation.englishNameTranslation}</p>
+            <h1 className="text-3xl font-extrabold text-center md:text-left">{surah.translation.name}</h1>
+            <p className="text-sm text-gray-500 text-center md:text-left">{surah.translation.englishNameTranslation}</p>
           </div>
           <button
             onClick={() => addBookmark({ id: surah.arabic.number, text: surah.translation.name })}
-            className="p-2 bg-gray-100 dark:bg-gray-800 rounded-full"
+            className="mt-4 md:mt-0 p-2 bg-gray-100 dark:bg-gray-800 rounded-full"
           >
             <BookmarkIcon className="w-6 h-6 text-blue-500" />
           </button>
         </header>
 
         <div className="mb-4">
-          <label className="text-sm font-medium">Select Translation:</label>
+          <label className="block text-sm font-medium mb-2">Select Translation:</label>
           <select
             value={selectedTranslation}
             onChange={(e) => setSelectedTranslation(e.target.value)}
-            className="ml-2 p-2 border rounded dark:bg-gray-800 dark:border-gray-600"
+            className="block w-full md:w-auto p-2 border rounded dark:bg-gray-800 dark:border-gray-600 focus:ring focus:ring-blue-300"
           >
             {translations.map((translation) => (
               <option key={translation.identifier} value={translation.identifier}>
@@ -80,9 +83,9 @@ const SurahDetails = () => {
           </select>
         </div>
 
-        <ol className="space-y-4">
+        <ol className="space-y-6 md:space-y-8">
           {surah.arabic.ayahs.map((ayah, index) => (
-            <li key={ayah.number} className="border-b pb-2">
+            <li key={ayah.number} className="border-b pb-4">
               <p
                 className="text-lg font-arabic"
                 style={{ fontFamily: `'Amiri Quran', serif` }}
