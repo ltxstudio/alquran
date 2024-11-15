@@ -8,7 +8,7 @@ const App = () => {
   return (
     <div className="min-h-screen bg-gray-100 dark:bg-gray-900 text-gray-800 dark:text-white">
       <Router>
-        <header className="p-4 bg-blue-500 text-white flex justify-between items-center">
+        <header className="sticky top-0 z-10 p-4 bg-blue-500 text-white flex justify-between items-center">
           <h1 className="text-xl font-bold">Al-Quran App</h1>
           <DarkModeToggle />
         </header>
