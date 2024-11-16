@@ -29,7 +29,6 @@ module.exports = {
     },
   },
   plugins: [
-    require('@tailwindcss/forms'), // Enable tailwind forms plugin for better styling of form elements
     require('@tailwindcss/typography'), // Enable typography plugin for richer text formatting
   ],
   darkMode: 'class', // Enable dark mode support by adding 'dark' class to the HTML element
