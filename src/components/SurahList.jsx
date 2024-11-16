@@ -3,7 +3,7 @@ import { Link } from 'react-router-dom';
 import axios from 'axios';
 import { motion } from 'framer-motion';
 import { useLocalStorage } from '../hooks/useLocalStorage'; // Custom hook for dark mode
-import { SpinnerIcon } from '@heroicons/react/24/solid'; // A loading spinner icon from HeroIcons
+import { RefreshIcon } from '@heroicons/react/24/solid'; // A loading spinner icon from HeroIcons
 
 const SurahList = () => {
   const [surahs, setSurahs] = useState([]);
@@ -62,7 +62,7 @@ const SurahList = () => {
 
   const totalPages = Math.ceil(filteredSurahs.length / surahsPerPage);
 
-  if (loading) return <div className="text-center text-lg"><SpinnerIcon className="animate-spin w-10 h-10 mx-auto text-blue-500" /></div>;
+  if (loading) return <div className="text-center text-lg"><RefreshIcon className="animate-spin w-10 h-10 mx-auto text-blue-500" /></div>;
 
   return (
     <div className={`container mx-auto px-4 py-6 ${darkMode ? 'bg-gray-800 text-white' : 'bg-white text-gray-900'}`}>
