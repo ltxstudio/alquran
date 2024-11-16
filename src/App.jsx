@@ -1,15 +1,28 @@
 import { BrowserRouter as Router, Routes, Route, Link } from 'react-router-dom';
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import SurahList from './components/SurahList';
 import SurahDetails from './components/SurahDetails';
 import BookmarkList from './components/BookmarkList';
 import DarkModeToggle from './components/DarkModeToggle';
+import { logEvent } from 'firebase/analytics';
+import { analytics } from './firebase'; // Import Firebase Analytics
 
 const App = () => {
   const [isBookmarksOpen, setIsBookmarksOpen] = useState(false);
 
   // Toggle Bookmark Modal
-  const toggleBookmarks = () => setIsBookmarksOpen(!isBookmarksOpen);
+  const toggleBookmarks = () => {
+    setIsBookmarksOpen(!isBookmarksOpen);
+    // Log event when bookmarks are opened/closed
+    logEvent(analytics, 'bookmark_modal_toggle', {
+      isOpen: !isBookmarksOpen, // passing the state to track if modal is open
+    });
+  };
+
+  useEffect(() => {
+    // Log event when the app is loaded
+    logEvent(analytics, 'app_opened');
+  }, []);
 
   return (
     <div className="min-h-screen bg-gray-100 dark:bg-gray-900 text-gray-800 dark:text-white">
