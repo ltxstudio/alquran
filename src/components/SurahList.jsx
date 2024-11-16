@@ -39,7 +39,7 @@ const SurahList = () => {
       <motion.h1
         initial={{ opacity: 0, y: -10 }}
         animate={{ opacity: 1, y: 0 }}
-        className="text-4xl font-extrabold text-center mb-8"
+        className="text-4xl font-extrabold text-center mb-8 text-gradient"
       >
         Surah List
       </motion.h1>
@@ -51,20 +51,21 @@ const SurahList = () => {
           placeholder="Search Surahs"
           value={searchQuery}
           onChange={handleSearch}
-          className="w-full p-3 border border-gray-300 rounded-lg shadow-sm focus:outline-none focus:ring-2 focus:ring-blue-500"
+          className="w-full p-3 border border-gray-300 rounded-lg shadow-sm focus:outline-none focus:ring-2 focus:ring-blue-500 transition-all duration-300 ease-in-out hover:ring-blue-400"
         />
       </div>
 
-      <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6">
+      <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5 gap-6">
         {filteredSurahs.map((surah) => (
           <motion.div
             key={surah.number}
             whileHover={{ scale: 1.05 }}
-            className="bg-gradient-to-r from-indigo-500 via-purple-500 to-pink-500 p-4 rounded-lg shadow-lg text-white"
+            whileTap={{ scale: 0.98 }}
+            className="bg-gradient-to-r from-teal-500 via-blue-500 to-purple-600 p-4 rounded-lg shadow-lg text-white transform transition-all duration-300 ease-in-out hover:shadow-xl"
           >
             <Link to={`/surah/${surah.number}`} className="block text-center">
-              <h2 className="text-2xl font-bold">{surah.englishName}</h2>
-              <p className="text-sm italic">{surah.englishNameTranslation}</p>
+              <h2 className="text-2xl font-bold mb-2">{surah.englishName}</h2>
+              <p className="text-sm italic mb-2">{surah.englishNameTranslation}</p>
               <p className="text-lg mt-2">Surah {surah.number}</p>
             </Link>
           </motion.div>
