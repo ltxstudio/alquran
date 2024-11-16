@@ -57,11 +57,11 @@ const SurahDetails = () => {
   );
 
   return (
-    <div className="container mx-auto px-6 py-8 max-w-4xl">
+    <div className="min-h-screen bg-gray-50 dark:bg-gray-900 py-12 px-6">
       <motion.article
         initial={{ opacity: 0, y: 10 }}
         animate={{ opacity: 1, y: 0 }}
-        className="bg-white dark:bg-gray-900 p-8 rounded-xl shadow-xl"
+        className="max-w-4xl mx-auto"
       >
         <header className="flex flex-col md:flex-row justify-between items-center mb-8">
           <div className="text-center md:text-left">
