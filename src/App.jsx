@@ -1,17 +1,33 @@
-import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
+import { BrowserRouter as Router, Routes, Route, Link } from 'react-router-dom';
+import { useState } from 'react';
 import SurahList from './components/SurahList';
 import SurahDetails from './components/SurahDetails';
 import BookmarkList from './components/BookmarkList';
 import DarkModeToggle from './components/DarkModeToggle';
 
 const App = () => {
+  const [isBookmarksOpen, setIsBookmarksOpen] = useState(false);
+
+  // Toggle Bookmark Modal
+  const toggleBookmarks = () => setIsBookmarksOpen(!isBookmarksOpen);
+
   return (
     <div className="min-h-screen bg-gray-100 dark:bg-gray-900 text-gray-800 dark:text-white">
       <Router>
         {/* Header Section */}
         <header className="sticky top-0 z-10 p-4 bg-blue-600 dark:bg-blue-800 text-white flex justify-between items-center shadow-md">
-          <h1 className="text-2xl font-bold">Al-Quran App</h1>
-          <DarkModeToggle />
+          <h1 className="text-2xl font-bold">
+            <Link to="/">Al-Quran App</Link>
+          </h1>
+          <div className="flex items-center space-x-4">
+            <DarkModeToggle />
+            <button
+              onClick={toggleBookmarks}
+              className="bg-blue-500 hover:bg-blue-600 p-2 rounded-full focus:outline-none"
+            >
+              <span className="text-white">Bookmarks</span>
+            </button>
+          </div>
         </header>
 
         {/* Main Content Section */}
@@ -22,10 +38,21 @@ const App = () => {
           </Routes>
         </main>
 
-        {/* Bookmark Section (Visible on all pages) */}
-        <aside className="fixed bottom-0 right-0 m-4 sm:m-6 p-4 bg-blue-500 dark:bg-blue-600 rounded-lg shadow-lg z-20">
-          <BookmarkList />
-        </aside>
+        {/* Bookmark Modal */}
+        {isBookmarksOpen && (
+          <div className="fixed inset-0 bg-gray-700 bg-opacity-50 flex justify-center items-center z-50">
+            <div className="bg-white dark:bg-gray-800 p-6 rounded-lg shadow-lg w-11/12 sm:w-2/3 md:w-1/2">
+              <h2 className="text-2xl font-bold mb-4 text-gray-800 dark:text-white">Your Bookmarks</h2>
+              <BookmarkList />
+              <button
+                onClick={toggleBookmarks}
+                className="mt-4 bg-red-500 text-white p-2 rounded-full w-full hover:bg-red-600"
+              >
+                Close
+              </button>
+            </div>
+          </div>
+        )}
 
         {/* Footer Section */}
         <footer className="p-4 text-center text-sm bg-gray-200 dark:bg-gray-800 mt-10">
