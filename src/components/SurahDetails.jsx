@@ -48,7 +48,7 @@ const SurahDetails = () => {
 
   if (loading) return (
     <div className="text-center py-12">
-      <svg className="animate-spin h-8 w-8 text-blue-500 mx-auto" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+      <svg className="animate-spin h-8 w-8 text-indigo-600 mx-auto" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
         <circle cx="12" cy="12" r="10" stroke="currentColor" strokeOpacity="0.2" />
         <path d="M4 12a8 8 0 0 1 8-8v4l4-4-4-4v4a12 12 0 0 0 0 16v-4l-4 4 4 4v-4a8 8 0 0 1-8-8z" />
       </svg>
@@ -57,31 +57,31 @@ const SurahDetails = () => {
   );
 
   return (
-    <div className="container mx-auto px-4 py-6">
+    <div className="container mx-auto px-6 py-8 max-w-4xl">
       <motion.article
         initial={{ opacity: 0, y: 10 }}
         animate={{ opacity: 1, y: 0 }}
-        className="bg-white dark:bg-gray-900 p-6 rounded-lg shadow-lg"
+        className="bg-white dark:bg-gray-900 p-8 rounded-xl shadow-xl"
       >
-        <header className="flex flex-col md:flex-row justify-between items-center mb-6">
+        <header className="flex flex-col md:flex-row justify-between items-center mb-8">
           <div className="text-center md:text-left">
-            <h1 className="text-4xl font-extrabold text-gray-800 dark:text-white">{surah.translation.name}</h1>
-            <p className="text-sm text-gray-500">{surah.translation.englishNameTranslation}</p>
+            <h1 className="text-3xl md:text-4xl font-extrabold text-gray-800 dark:text-white leading-tight">{surah.translation.name}</h1>
+            <p className="text-sm md:text-base text-gray-500 mt-2">{surah.translation.englishNameTranslation}</p>
           </div>
           <button
             onClick={() => addBookmark({ id: surah.arabic.number, text: surah.translation.name })}
-            className="mt-4 md:mt-0 p-2 bg-gray-100 dark:bg-gray-800 rounded-full hover:bg-blue-500 dark:hover:bg-blue-700 transition"
+            className="mt-4 md:mt-0 p-3 bg-gray-100 dark:bg-gray-800 rounded-full hover:bg-blue-500 dark:hover:bg-blue-700 transition"
           >
             <BookmarkIcon className="w-6 h-6 text-blue-500" />
           </button>
         </header>
 
-        <div className="mb-6">
-          <label className="block text-sm font-medium mb-2 text-gray-700">Select Translation:</label>
+        <div className="mb-8">
+          <label className="block text-sm font-medium mb-2 text-gray-700 dark:text-gray-300">Select Translation:</label>
           <select
             value={selectedTranslation}
             onChange={(e) => setSelectedTranslation(e.target.value)}
-            className="block w-full p-3 border border-gray-300 rounded-md shadow-sm focus:ring-2 focus:ring-blue-300 dark:bg-gray-800 dark:text-white dark:border-gray-600 dark:focus:ring-blue-500"
+            className="block w-full p-4 border border-gray-300 rounded-md shadow-sm focus:ring-2 focus:ring-blue-300 dark:bg-gray-800 dark:text-white dark:border-gray-600 dark:focus:ring-blue-500"
           >
             {translations.map((translation) => (
               <option key={translation.identifier} value={translation.identifier}>
@@ -91,17 +91,17 @@ const SurahDetails = () => {
           </select>
         </div>
 
-        <ol className="space-y-6">
+        <ol className="space-y-8">
           {surah.arabic.ayahs.map((ayah, index) => (
-            <li key={ayah.number} className="bg-gray-50 dark:bg-gray-800 rounded-lg p-4 shadow-sm">
-              <div className="flex flex-col md:flex-row">
-                <div className="md:w-1/4 text-right">
-                  <p className="text-lg font-arabic" style={{ fontFamily: `'Amiri Quran', serif` }}>
+            <li key={ayah.number} className="bg-gray-50 dark:bg-gray-800 rounded-lg p-6 shadow-md">
+              <div className="flex flex-col md:flex-row items-start md:items-center">
+                <div className="md:w-1/3 text-right">
+                  <p className="text-2xl md:text-3xl font-arabic" style={{ fontFamily: `'Amiri Quran', serif` }}>
                     {ayah.text}
                   </p>
                 </div>
-                <div className="md:w-3/4 md:ml-4">
-                  <p className="text-sm text-gray-700 dark:text-gray-300">{surah.translation.ayahs[index].text}</p>
+                <div className="md:w-2/3 md:ml-6 mt-4 md:mt-0">
+                  <p className="text-lg md:text-xl text-gray-700 dark:text-gray-300">{surah.translation.ayahs[index].text}</p>
                   <AudioPlayer audioUrl={surah.audio.ayahs[index].audio} />
                 </div>
               </div>
