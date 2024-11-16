@@ -68,7 +68,6 @@ const SurahDetails = () => {
           </button>
         </header>
 
-        {/* Translation selector */}
         <div className="mb-4">
           <label className="block text-sm font-medium mb-2">Select Translation:</label>
           <select
@@ -84,7 +83,6 @@ const SurahDetails = () => {
           </select>
         </div>
 
-        {/* List of Ayahs */}
         <ol className="space-y-6 md:space-y-8">
           {surah.arabic.ayahs.map((ayah, index) => (
             <li key={ayah.number} className="border-b pb-4">
